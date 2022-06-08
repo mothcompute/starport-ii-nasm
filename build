@@ -1,0 +1,5 @@
+nasm sp2.s -s -o res/sp2.bin
+dd if=res/sp2.bin of=sp2.com bs=1 count=1993
+
+ndisasm -b 16 sp2.com > res/disas.new
+diff res/disas.old res/disas.new > diff
