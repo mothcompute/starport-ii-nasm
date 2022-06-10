@@ -7,30 +7,25 @@ NUMSEG equ (1993/512)+1 ; filesize is 1993 bytes
 
 mov ax, 0x100
 mov ss, ax
-mov ds, ax
 mov es, ax
 mov gs, ax
 mov fs, ax
-mov bp, 0xF000
+xor bp, bp
 mov sp, bp
-
-mov bx, 0x100
+push ax
+push ax
+push ax
+mov bx, ax
 mov al, NUMSEG
 inc ah
-mov cl, ah
-xor ch, ch
-xor dh, dh
-int 13h
-
 xor cx, cx
 mov ds, cx
 mov word [ds:0x21*4], int21
-mov word [ds:0x21*4+2], 0
-
-inc ch
-mov ds, cx
-push 0x100
-push 0x100
+mov word [ds:0x21*4+2], cx
+mov cl, ah
+xor dh, dh
+int 13h
+pop ds
 retf
 
 int21:
